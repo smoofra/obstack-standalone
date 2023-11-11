@@ -510,6 +510,9 @@ extern int obstack_exit_failure;
 
 #endif /* not __GNUC__ */
 
+
+int obstack_printf (struct obstack *obstack, const char *template, ...);
+
 #ifdef __cplusplus
 }       /* C++ */
 #endif

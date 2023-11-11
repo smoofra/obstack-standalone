@@ -38,6 +38,7 @@
 #include <stdio.h>
 #include <stddef.h>
 #include <stdint.h>
+#include <stdarg.h>
 
 /* Determine default alignment.  */
 union fooround
@@ -370,3 +371,18 @@ print_and_abort (void)
   exit (obstack_exit_failure);
 }
 
+int
+obstack_printf (struct obstack *obstack, const char *fmt, ...) {
+  va_list args;
+  va_start(args, fmt);
+  char *s = NULL;
+  int n = vasprintf(&s, fmt, args);
+  va_end(args);
+  if (n >= 0) {
+    obstack_grow0(obstack, s, n);
+  }
+  if (s) {
+    free(s);
+  }
+  return n;
+}
