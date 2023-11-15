@@ -13,6 +13,8 @@ install(TARGETS obstack
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         PUBLIC_HEADER DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
+add_test(build_test_code "${CMAKE_COMMAND}" --build ${CMAKE_BINARY_DIR} --target tst-obstack)
 add_test(NAME test COMMAND $<TARGET_FILE:tst-obstack>)
+set_tests_properties(test PROPERTIES DEPENDS build_test_code)
 enable_testing()
 
